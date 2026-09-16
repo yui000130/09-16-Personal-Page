@@ -1,13 +1,18 @@
 /**
  * Personal Portal & Live Clock Logic
- * Clean, customizable, and responsive personal website.
+ * DIC-1 Compliant Personal Page with In-Browser Profile Editor
  */
 
 // Default configuration
 const DEFAULT_CONFIG = {
   name: "游雅筑",
   title: "資訊工程與軟體開發 • 數位創新與智慧系統探索者",
+  avatar: "筑",
   bio: "你好！我是游雅筑，熱愛科技與程式開發。目前專注於網頁前端技術、Python 資料應用與系統開發。我相信好的程式不僅要具備嚴謹的邏輯結構，更需要兼顧直覺且優雅的使用者體驗。平時喜歡透過實作專案累積經驗，積極擁抱 AI 輔助開發工具，不斷拓展自己在軟體工程領域的技術邊界。",
+  skills: "Python (資料處理與自動化), Web Development (HTML5/CSS3/JS), AI & Machine Learning 應用探索, C / C++ 程式設計, Git & GitHub 版本控制, UI/UX 響應式設計, GitHub Pages 部署, Data Analysis 數據分析",
+  projName: "09-16-Personal-Page (即時時鐘個人首頁)",
+  projDesc: "本學期個人代表網站。使用 Antigravity 與 AI 工具協作開發，整合了毫秒級跳動的 JavaScript 即時系統時鐘、雙態懸浮導覽列、個人檔案動態客製化以及 GitHub Pages 自動發布管線。",
+  projLink: "https://github.com/yui000130/09-16-Personal-Page",
   is24Hour: false
 };
 
@@ -15,7 +20,12 @@ const DEFAULT_CONFIG = {
 let state = {
   name: localStorage.getItem("personal_portal_name") || DEFAULT_CONFIG.name,
   title: localStorage.getItem("personal_portal_title") || DEFAULT_CONFIG.title,
+  avatar: localStorage.getItem("personal_portal_avatar") || DEFAULT_CONFIG.avatar,
   bio: localStorage.getItem("personal_portal_bio") || DEFAULT_CONFIG.bio,
+  skills: localStorage.getItem("personal_portal_skills") || DEFAULT_CONFIG.skills,
+  projName: localStorage.getItem("personal_portal_proj_name") || DEFAULT_CONFIG.projName,
+  projDesc: localStorage.getItem("personal_portal_proj_desc") || DEFAULT_CONFIG.projDesc,
+  projLink: localStorage.getItem("personal_portal_proj_link") || DEFAULT_CONFIG.projLink,
   is24Hour: localStorage.getItem("personal_portal_24h") !== null 
     ? localStorage.getItem("personal_portal_24h") === "true" 
     : DEFAULT_CONFIG.is24Hour
@@ -31,10 +41,7 @@ const mobileMenuBtnEl = document.getElementById("mobileMenuBtn");
 const navLinksEl = document.querySelector(".nav-links");
 
 const heroNameDisplayEl = document.getElementById("heroNameDisplay");
-const heroNameInputEl = document.getElementById("heroNameInput");
-const editHeroNameBtnEl = document.getElementById("editHeroNameBtn");
 const heroTitleDisplayEl = document.getElementById("heroTitleDisplay");
-const heroTitleInputEl = document.getElementById("heroTitleInput");
 
 const heroHoursEl = document.getElementById("heroHours");
 const heroMinutesEl = document.getElementById("heroMinutes");
@@ -52,9 +59,33 @@ const aboutInitialsEl = document.getElementById("aboutInitials");
 const aboutProfileNameEl = document.getElementById("aboutProfileName");
 const aboutProfileRoleEl = document.getElementById("aboutProfileRole");
 const aboutBioTextEl = document.getElementById("aboutBioText");
+const metaDeptTextEl = document.getElementById("metaDeptText");
 const aboutClockTextEl = document.getElementById("aboutClockText");
 const footerAuthorNameEl = document.getElementById("footerAuthorName");
 const resetNameBtnEl = document.getElementById("resetNameBtn");
+
+const skillsTagCloudEl = document.getElementById("skillsTagCloud");
+const proj1TitleEl = document.getElementById("proj1Title");
+const proj1DescEl = document.getElementById("proj1Desc");
+const proj1LinkEl = document.getElementById("proj1Link");
+
+// Modal Elements
+const profileEditModalEl = document.getElementById("profileEditModal");
+const openEditModalBtnEl = document.getElementById("openEditModalBtn");
+const openEditModalBtn2El = document.getElementById("openEditModalBtn2");
+const quickEditBtnHeroEl = document.getElementById("quickEditBtnHero");
+const closeModalBtnEl = document.getElementById("closeModalBtn");
+const cancelModalBtnEl = document.getElementById("cancelModalBtn");
+const saveModalBtnEl = document.getElementById("saveModalBtn");
+
+const inputUserNameEl = document.getElementById("inputUserName");
+const inputUserTitleEl = document.getElementById("inputUserTitle");
+const inputUserAvatarEl = document.getElementById("inputUserAvatar");
+const inputUserBioEl = document.getElementById("inputUserBio");
+const inputUserSkillsEl = document.getElementById("inputUserSkills");
+const inputProjNameEl = document.getElementById("inputProjName");
+const inputProjDescEl = document.getElementById("inputProjDesc");
+const inputProjLinkEl = document.getElementById("inputProjLink");
 
 // ==========================================================================
 // Real-Time Clock & System Metrics
@@ -152,7 +183,7 @@ function setupFormatToggle() {
 }
 
 // ==========================================================================
-// Profile Name & Title Customization
+// Profile & Dynamic Content Rendering
 // ==========================================================================
 
 function getInitials(name) {
@@ -170,89 +201,113 @@ function getInitials(name) {
 }
 
 function renderProfile() {
+  // Profile Name
   heroNameDisplayEl.textContent = state.name;
-  navBrandNameEl.textContent = state.name;
+  navBrandNameEl.textContent = `${state.name} (Yui)`;
   aboutProfileNameEl.textContent = state.name;
-  footerAuthorNameEl.textContent = state.name;
+  footerAuthorNameEl.textContent = `${state.name} (Yui)`;
 
+  // Title / Department
   heroTitleDisplayEl.textContent = state.title;
   aboutProfileRoleEl.textContent = state.title;
+  if (metaDeptTextEl) metaDeptTextEl.textContent = state.title;
+
+  // Bio
   aboutBioTextEl.textContent = state.bio;
 
-  aboutInitialsEl.textContent = getInitials(state.name);
+  // Avatar Initials
+  aboutInitialsEl.textContent = state.avatar || getInitials(state.name);
+
+  // Projects
+  if (proj1TitleEl) proj1TitleEl.textContent = state.projName;
+  if (proj1DescEl) proj1DescEl.innerHTML = `<strong>專案說明：</strong>${state.projDesc}`;
+  if (proj1LinkEl) proj1LinkEl.href = state.projLink;
+
+  // Render Skills Tags Cloud
+  if (skillsTagCloudEl && state.skills) {
+    const list = state.skills.split(",").map(s => s.trim()).filter(Boolean);
+    skillsTagCloudEl.innerHTML = "";
+    list.forEach((skill, idx) => {
+      const span = document.createElement("span");
+      span.className = `tag-chip ${idx < 3 ? "accent" : ""}`;
+      span.textContent = skill;
+      skillsTagCloudEl.appendChild(span);
+    });
+  }
 }
 
-function setupProfileEditing() {
-  // Name Editing
-  function startEditingName() {
-    heroNameInputEl.value = state.name;
-    heroNameDisplayEl.classList.add("hidden");
-    editHeroNameBtnEl.classList.add("hidden");
-    heroNameInputEl.classList.remove("hidden");
-    heroNameInputEl.focus();
-    heroNameInputEl.select();
-  }
+// ==========================================================================
+// Profile Editor Modal (修改檔案 / 編輯個人資料視窗)
+// ==========================================================================
 
-  function finishEditingName() {
-    const val = heroNameInputEl.value.trim();
-    if (val) {
-      state.name = val;
-      localStorage.setItem("personal_portal_name", val);
-    }
-    renderProfile();
-    heroNameInputEl.classList.add("hidden");
-    heroNameDisplayEl.classList.remove("hidden");
-    editHeroNameBtnEl.classList.remove("hidden");
-  }
+function openEditModal() {
+  inputUserNameEl.value = state.name;
+  inputUserTitleEl.value = state.title;
+  inputUserAvatarEl.value = state.avatar || getInitials(state.name);
+  inputUserBioEl.value = state.bio;
+  inputUserSkillsEl.value = state.skills;
+  inputProjNameEl.value = state.projName;
+  inputProjDescEl.value = state.projDesc;
+  inputProjLinkEl.value = state.projLink;
 
-  heroNameDisplayEl.addEventListener("click", startEditingName);
-  editHeroNameBtnEl.addEventListener("click", startEditingName);
-  heroNameInputEl.addEventListener("blur", finishEditingName);
-  heroNameInputEl.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") finishEditingName();
-    else if (e.key === "Escape") {
-      heroNameInputEl.value = state.name;
-      finishEditingName();
-    }
+  profileEditModalEl.classList.remove("hidden");
+}
+
+function closeEditModal() {
+  profileEditModalEl.classList.add("hidden");
+}
+
+function saveEditModal() {
+  const newName = inputUserNameEl.value.trim();
+  const newTitle = inputUserTitleEl.value.trim();
+  const newAvatar = inputUserAvatarEl.value.trim();
+  const newBio = inputUserBioEl.value.trim();
+  const newSkills = inputUserSkillsEl.value.trim();
+  const newProjName = inputProjNameEl.value.trim();
+  const newProjDesc = inputProjDescEl.value.trim();
+  const newProjLink = inputProjLinkEl.value.trim();
+
+  if (newName) state.name = newName;
+  if (newTitle) state.title = newTitle;
+  if (newAvatar) state.avatar = newAvatar;
+  if (newBio) state.bio = newBio;
+  if (newSkills) state.skills = newSkills;
+  if (newProjName) state.projName = newProjName;
+  if (newProjDesc) state.projDesc = newProjDesc;
+  if (newProjLink) state.projLink = newProjLink;
+
+  localStorage.setItem("personal_portal_name", state.name);
+  localStorage.setItem("personal_portal_title", state.title);
+  localStorage.setItem("personal_portal_avatar", state.avatar);
+  localStorage.setItem("personal_portal_bio", state.bio);
+  localStorage.setItem("personal_portal_skills", state.skills);
+  localStorage.setItem("personal_portal_proj_name", state.projName);
+  localStorage.setItem("personal_portal_proj_desc", state.projDesc);
+  localStorage.setItem("personal_portal_proj_link", state.projLink);
+
+  renderProfile();
+  closeEditModal();
+}
+
+function setupModalListeners() {
+  if (openEditModalBtnEl) openEditModalBtnEl.addEventListener("click", openEditModal);
+  if (openEditModalBtn2El) openEditModalBtn2El.addEventListener("click", openEditModal);
+  if (quickEditBtnHeroEl) quickEditBtnHeroEl.addEventListener("click", openEditModal);
+  if (heroNameDisplayEl) heroNameDisplayEl.addEventListener("click", openEditModal);
+
+  if (closeModalBtnEl) closeModalBtnEl.addEventListener("click", closeEditModal);
+  if (cancelModalBtnEl) cancelModalBtnEl.addEventListener("click", closeEditModal);
+  if (saveModalBtnEl) saveModalBtnEl.addEventListener("click", saveEditModal);
+
+  // Close on click outside
+  profileEditModalEl.addEventListener("click", (e) => {
+    if (e.target === profileEditModalEl) closeEditModal();
   });
 
-  // Title Editing
-  function startEditingTitle() {
-    heroTitleInputEl.value = state.title;
-    heroTitleDisplayEl.classList.add("hidden");
-    heroTitleInputEl.classList.remove("hidden");
-    heroTitleInputEl.focus();
-    heroTitleInputEl.select();
-  }
-
-  function finishEditingTitle() {
-    const val = heroTitleInputEl.value.trim();
-    if (val) {
-      state.title = val;
-      localStorage.setItem("personal_portal_title", val);
-    }
-    renderProfile();
-    heroTitleInputEl.classList.add("hidden");
-    heroTitleDisplayEl.classList.remove("hidden");
-  }
-
-  heroTitleDisplayEl.addEventListener("click", startEditingTitle);
-  heroTitleInputEl.addEventListener("blur", finishEditingTitle);
-  heroTitleInputEl.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") finishEditingTitle();
-    else if (e.key === "Escape") {
-      heroTitleInputEl.value = state.title;
-      finishEditingTitle();
-    }
-  });
-
-  // Bio Editing
-  aboutBioTextEl.addEventListener("click", () => {
-    const newBio = prompt("修改您的個人簡介 Biography:", state.bio);
-    if (newBio !== null && newBio.trim() !== "") {
-      state.bio = newBio.trim();
-      localStorage.setItem("personal_portal_bio", state.bio);
-      aboutBioTextEl.textContent = state.bio;
+  // Close on Escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !profileEditModalEl.classList.contains("hidden")) {
+      closeEditModal();
     }
   });
 }
@@ -271,7 +326,7 @@ function setupHeaderScroll() {
 
     // Active Section Link Highlight
     const sections = document.querySelectorAll("section[id], article[id]");
-    const scrollPos = window.scrollY + 120;
+    const scrollPos = window.scrollY + 140;
 
     sections.forEach(sec => {
       const top = sec.offsetTop;
@@ -306,15 +361,17 @@ function setupMobileMenu() {
 // Reset Configuration
 function setupReset() {
   resetNameBtnEl.addEventListener("click", () => {
-    if (confirm("是否將所有姓名與設定恢復為預設值？")) {
-      localStorage.removeItem("personal_portal_name");
-      localStorage.removeItem("personal_portal_title");
-      localStorage.removeItem("personal_portal_bio");
-      localStorage.removeItem("personal_portal_24h");
+    if (confirm("是否將所有個人資料與設定恢復為預設值？")) {
+      localStorage.clear();
 
       state.name = DEFAULT_CONFIG.name;
       state.title = DEFAULT_CONFIG.title;
+      state.avatar = DEFAULT_CONFIG.avatar;
       state.bio = DEFAULT_CONFIG.bio;
+      state.skills = DEFAULT_CONFIG.skills;
+      state.projName = DEFAULT_CONFIG.projName;
+      state.projDesc = DEFAULT_CONFIG.projDesc;
+      state.projLink = DEFAULT_CONFIG.projLink;
       state.is24Hour = DEFAULT_CONFIG.is24Hour;
 
       renderProfile();
@@ -329,7 +386,7 @@ function setupReset() {
 
 document.addEventListener("DOMContentLoaded", () => {
   renderProfile();
-  setupProfileEditing();
+  setupModalListeners();
   setupFormatToggle();
   setupHeaderScroll();
   setupMobileMenu();
