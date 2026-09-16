@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Personal Space • 個人主頁</title>
+  <meta name="description" content="個人專屬網站，整合即時系統時鐘、個人簡介、技能標籤、精選作品與聯絡方式。">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500;700&family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="index">
+  <div id="page-wrapper">
+
+    <!-- Top Fixed Header -->
+    <header id="header" class="alt">
+      <div class="header-inner">
+        <h1 id="logo">
+          <a href="#banner" class="brand-link">
+            <span class="pulse-indicator"></span>
+            <span id="navBrandName">Yui (yui000130)</span>
+          </a>
+        </h1>
+        
+        <nav id="nav">
+          <ul class="nav-links">
+            <li><a href="#banner" class="active">首頁 Home</a></li>
+            <li><a href="#about">關於 About</a></li>
+            <li><a href="#skills">技能標籤 Skills</a></li>
+            <li><a href="#projects">精選作品 Projects</a></li>
+            <li><a href="#timeline">個人歷程 Timeline</a></li>
+            <li><a href="#contact">聯絡方式 Contact</a></li>
+          </ul>
+
+          <!-- Live Time Pill in Navbar -->
+          <div class="nav-clock-pill" id="navClockPill" title="點擊切換 12/24 小時制">
+            <span class="clock-icon">⏱️</span>
+            <span id="navTimeDisplay">10:29:37</span>
+            <span class="tz-badge" id="navTzBadge">GMT+8</span>
+          </div>
+
+          <!-- Mobile Hamburger -->
+          <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Toggle navigation menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section id="banner">
+      <div class="banner-overlay"></div>
+      <div class="inner">
+        <header>
+          <!-- Editable Name -->
+          <div class="editable-name-container">
+            <h2 id="heroNameDisplay" class="hero-name" title="點擊即可直接修改姓名">Yui (yui000130)</h2>
+            <button id="editHeroNameBtn" class="hero-edit-btn" title="編輯姓名" aria-label="編輯姓名">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+              </svg>
+            </button>
+            <input type="text" id="heroNameInput" class="hero-name-input hidden" maxlength="36" placeholder="輸入您的姓名..." />
+          </div>
+
+          <div class="divider-line"></div>
+
+          <!-- Editable Subtitle / Tagline -->
+          <div class="editable-title-container">
+            <p id="heroTitleDisplay" class="hero-subtitle" title="點擊編輯頭銜">Developer • Creator • Lifelong Learner</p>
+            <input type="text" id="heroTitleInput" class="hero-title-input hidden" maxlength="80" placeholder="輸入您的專業頭銜或座右銘..." />
+          </div>
+        </header>
+
+        <!-- Prominent Hero Live Real-Time Clock Box -->
+        <div class="hero-clock-box">
+          <div class="clock-top-meta">
+            <span class="live-status-tag"><span class="dot"></span> 系統當前即時時間 (LIVE SYSTEM TIME)</span>
+            <span class="date-text" id="heroDateDisplay">2026 年 9 月 16 日 星期三</span>
+          </div>
+
+          <div class="clock-digits-wrapper">
+            <div class="digits-row" id="heroClockDigits">
+              <span class="digit-unit" id="heroHours">10</span>
+              <span class="colon">:</span>
+              <span class="digit-unit" id="heroMinutes">29</span>
+              <span class="colon">:</span>
+              <span class="digit-unit" id="heroSeconds">37</span>
+              <span class="ampm-tag" id="heroAmPm">AM</span>
+            </div>
+          </div>
+
+          <!-- Seconds & Day Progress Bars -->
+          <div class="clock-bar-container">
+            <div class="clock-bar-label">
+              <span>秒數進度 (Seconds)</span>
+              <span id="secPercentLabel">62%</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill" id="secProgressBar" style="width: 62%;"></div>
+            </div>
+          </div>
+
+          <div class="clock-controls-bar">
+            <button id="toggleFormatBtn" class="clock-btn" title="切換 12 或 24 小時格式">
+              <span id="formatText">切換為 24H 制</span>
+            </button>
+            <div class="clock-info-item">
+              <span class="label">所在時區：</span>
+              <span class="val" id="heroTzDisplay">Asia/Taipei (UTC+8)</span>
+            </div>
+            <div class="clock-info-item">
+              <span class="label">今日進度：</span>
+              <span class="val" id="dayPercentDisplay">43.7%</span>
+            </div>
+          </div>
+        </div>
+
+        <footer>
+          <ul class="buttons">
+            <li><a href="#about" class="button special scrolly">認識我 About Me</a></li>
+            <li><a href="#projects" class="button scrolly">瀏覽作品 Projects</a></li>
+          </ul>
+          <div class="scroll-hint">
+            <a href="#about" class="scroll-arrow scrolly" aria-label="Scroll to content">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </a>
+          </div>
+        </footer>
+      </div>
+    </section>
+
+    <!-- Main Content Container -->
+    <main id="main">
+
+      <!-- Section: About Me -->
+      <article id="about" class="container special">
+        <header class="section-header">
+          <span class="section-tag">WHO I AM</span>
+          <h2>關於我 About Me</h2>
+          <p class="section-desc">熱愛探索與創造，專注於打造簡潔優雅且實用的數位體驗。</p>
+        </header>
+
+        <div class="about-grid">
+          <div class="profile-card">
+            <div class="avatar-circle">
+              <span class="avatar-initials" id="aboutInitials">Y</span>
+              <div class="avatar-status" title="Status: Online"></div>
+            </div>
+            <h3 class="profile-name" id="aboutProfileName">Yui (yui000130)</h3>
+            <p class="profile-role" id="aboutProfileRole">Creator & Developer</p>
+            <div class="profile-links">
+              <a href="#contact" class="profile-pill-link">✉️ 聯絡我 Contact</a>
+              <a href="https://github.com/yui000130/09-16-Personal-Page" target="_blank" rel="noopener noreferrer" class="profile-pill-link">🐙 GitHub 主頁</a>
+              <a href="#projects" class="profile-pill-link">💼 精選專案 Works</a>
+            </div>
+          </div>
+
+          <div class="about-text-card">
+            <h3>個人簡介 Biography</h3>
+            <p id="aboutBioText" class="editable-text" title="點擊即可自訂您的簡介">
+              歡迎來到我的個人網站！這裡記錄我的個人作品、技術積累與日常靈感。我熱衷於將複雜的想法轉化為優雅直觀的產品，並保持對前沿技術的好奇心。無論是軟體開發、介面設計還是自我成長，我都持續在實踐中累積經驗。
+            </p>
+
+            <div class="info-meta-list">
+              <div class="meta-row">
+                <span class="meta-label">📍 當前位置：</span>
+                <span class="meta-val">Taiwan (可遠端合作 Remote Friendly)</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label">💡 當前狀態：</span>
+                <span class="meta-val">開放自由接案、新專案交流與技術合作</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label">🎯 專注領域：</span>
+                <span class="meta-val">全端網頁開發 • 現代化前端架構 • 效率工具設計</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label">⏱️ 本地即時時間：</span>
+                <span class="meta-val highlight" id="aboutClockText">2026-09-16 10:29:37 (GMT+8)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Section: Skills & Tags (多樣化個人技能與標籤) -->
+      <section id="skills" class="wrapper style3 container special">
+        <header class="section-header">
+          <span class="section-tag">CORE COMPETENCIES</span>
+          <h2>專業技能與興趣標籤 Skills & Tags</h2>
+          <p class="section-desc">技術棧、開發工具以及個人熱衷的領域主題。</p>
+        </header>
+
+        <!-- Dynamic Tag Cloud -->
+        <div class="tag-cloud-wrapper">
+          <span class="tag-chip accent">⚡ JavaScript (ES6+)</span>
+          <span class="tag-chip accent">🎨 HTML5 & Modern CSS</span>
+          <span class="tag-chip accent">🚀 React / Vue / Next.js</span>
+          <span class="tag-chip accent">🐍 Python</span>
+          <span class="tag-chip">⚙️ Node.js & REST API</span>
+          <span class="tag-chip">📦 Git & GitHub Workflow</span>
+          <span class="tag-chip">📱 響應式網頁設計 (RWD)</span>
+          <span class="tag-chip">✨ UI/UX 介面體驗</span>
+          <span class="tag-chip">🤖 AI 輔助開發與自動化</span>
+          <span class="tag-chip">☁️ 雲端服務與快速部署</span>
+          <span class="tag-chip">📊 效能調校與 SEO 優化</span>
+          <span class="tag-chip">☕ 專注力與敏捷思維</span>
+        </div>
+
+        <!-- 3 Feature Pillars -->
+        <div class="row features-grid" style="margin-top: 40px;">
+          <!-- Card 1 -->
+          <div class="col-4 feature-box">
+            <section>
+              <div class="icon-circle">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="16 18 22 12 16 6"></polyline>
+                  <polyline points="8 6 2 12 8 18"></polyline>
+                </svg>
+              </div>
+              <header>
+                <h3>現代網頁開發<br>Web Development</h3>
+              </header>
+              <p>精通乾淨模組化的程式碼架構，打造加載迅速、視覺流暢且跨裝置兼具的高品質網頁應用。</p>
+            </section>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="col-4 feature-box">
+            <section>
+              <div class="icon-circle">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+                  <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                  <path d="M2 2l7.586 7.586"></path>
+                  <circle cx="11" cy="11" r="2"></circle>
+                </svg>
+              </div>
+              <header>
+                <h3>產品思維與設計<br>UI/UX & Creative</h3>
+              </header>
+              <p>重視使用者感受與微互動細節，堅持美觀與實用並重，給訪客留下深刻驚艷的第一印象。</p>
+            </section>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="col-4 feature-box">
+            <section>
+              <div class="icon-circle">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 14 14"></polyline>
+                </svg>
+              </div>
+              <header>
+                <h3>持續學習與實踐<br>Lifelong Learning</h3>
+              </header>
+              <p>主動擁抱新興工具與工作流，善用 AI 與自動化技術大幅提升生產力與專案迭代速度。</p>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Featured Works & Projects -->
+      <section id="projects" class="wrapper style2 container special-alt">
+        <header class="section-header">
+          <span class="section-tag">SELECTED PORTFOLIO</span>
+          <h2>精選作品與專案 Projects & Works</h2>
+          <p class="section-desc">這裡展示我的個人代表專案、開源實驗與創意成果。</p>
+        </header>
+
+        <div class="row projects-grid">
+          <!-- Project 1 -->
+          <div class="col-6 project-card">
+            <div class="project-thumb thumb-1">
+              <span class="project-tag">Live Showcase</span>
+            </div>
+            <div class="project-body">
+              <h3>個人首頁與即時儀表板 (Personal Portal)</h3>
+              <p>採用現代極簡玻璃擬態與大氣 Hero Banner，整合毫秒級即時系統時鐘、雙態導覽列、個人姓名即時編輯與本地快取記憶功能。</p>
+              <div class="project-actions">
+                <a href="#banner" class="button small">當前展示中</a>
+                <a href="https://github.com/yui000130/09-16-Personal-Page" target="_blank" rel="noopener noreferrer" class="button alt small">原始碼庫</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 2 -->
+          <div class="col-6 project-card">
+            <div class="project-thumb thumb-2">
+              <span class="project-tag">Creative Tool</span>
+            </div>
+            <div class="project-body">
+              <h3>高效個人工作台與筆記系統 (Focus Workspace)</h3>
+              <p>模組化個人生產力工具，整合待辦清單、白噪音專注音頻與快捷書籤導航，打造流暢不受干擾的數位工作流程。</p>
+              <div class="project-actions">
+                <a href="#contact" class="button small">了解更多</a>
+                <a href="https://github.com/yui000130/09-16-Personal-Page" target="_blank" rel="noopener noreferrer" class="button alt small">體驗 Demo</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Timeline (個人重要歷程) -->
+      <section id="timeline" class="wrapper style1 container special">
+        <header class="section-header">
+          <span class="section-tag">JOURNEY & MILESTONES</span>
+          <h2>個人歷程與近況 Timeline</h2>
+          <p class="section-desc">紀錄近期的重要里程碑、專案發表與學習足跡。</p>
+        </header>
+
+        <div class="timeline-list">
+          <div class="timeline-item">
+            <span class="timeline-badge">2026.09</span>
+            <div class="timeline-content">
+              <h4>全新個人品牌主頁正式上線</h4>
+              <p>完成響應式架構重構，加入即時跳動系統時鐘、秒數進度視覺化與自定義姓名設定。</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <span class="timeline-badge">2026.04</span>
+            <div class="timeline-content">
+              <h4>探索現代化 AI 輔助開發工作流</h4>
+              <p>將最新語言模型與自動化腳本整合至日常軟體架構與個人專案開發，生產力大幅躍升。</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <span class="timeline-badge">2025.11</span>
+            <div class="timeline-content">
+              <h4>開源專案累計突破多個 Star 肯定</h4>
+              <p>持續分享實用前端元件與開發技巧，與社群開發者共同交流進步。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Contact Section -->
+      <article id="contact" class="container special">
+        <header class="section-header">
+          <span class="section-tag">SAY HELLO</span>
+          <h2>聯絡我 Contact</h2>
+          <p class="section-desc">若您有專案合作意向、技術問題想要交流，或單純想打個招呼，歡迎隨時來信！</p>
+        </header>
+
+        <div class="contact-box">
+          <p class="contact-intro">點擊下方按鈕或複製郵件地址即可發送：</p>
+          <div class="contact-email-badge">
+            <span class="email-icon">✉️</span>
+            <a href="mailto:your.email@example.com" id="contactEmailLink">your.email@example.com</a>
+          </div>
+          <p class="contact-note">※ 通常我會在 24 小時內回覆來信，期待與您相遇！</p>
+        </div>
+      </article>
+
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer">
+      <ul class="icons">
+        <li><a href="https://github.com/yui000130/09-16-Personal-Page" target="_blank" rel="noopener noreferrer" class="icon-link" title="GitHub"><span class="label">🐙 GitHub</span></a></li>
+        <li><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="icon-link" title="LinkedIn"><span class="label">💼 LinkedIn</span></a></li>
+        <li><a href="https://x.com" target="_blank" rel="noopener noreferrer" class="icon-link" title="Twitter / X"><span class="label">🐦 Twitter / X</span></a></li>
+        <li><a href="mailto:your.email@example.com" class="icon-link" title="Email"><span class="label">✉️ Email</span></a></li>
+      </ul>
+
+      <ul class="copyright">
+        <li>&copy; <span id="copyrightYear">2026</span> <span id="footerAuthorName">Yui (yui000130)</span>. All rights reserved.</li>
+        <li><a href="https://github.com/yui000130/09-16-Personal-Page" target="_blank" rel="noopener noreferrer">GitHub Repository</a> • Clean, modern &amp; responsive personal portal.</li>
+        <li><button id="resetNameBtn" class="reset-link-btn" title="恢復預設姓名與設定">恢復預設值</button></li>
+      </ul>
+    </footer>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
