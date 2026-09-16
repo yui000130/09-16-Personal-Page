@@ -1,66 +1,38 @@
-# 09-16-Personal-Page • 個人專屬主頁與即時時鐘
+# DIC-1 — Personal Page • 游雅筑的個人專屬網站
 
-> 🌟 專為 **Yui ([@yui000130](https://github.com/yui000130))** 打造的現代化個人網站與即時系統儀表板。
+> 🎯 **作業成果**：使用 Antigravity + GitHub + GitHub Pages 建立並發布的個人專屬主頁與即時時鐘系統。
 
 [![GitHub Pages](https://img.shields.io/badge/Deploy-GitHub%20Pages-brightgreen?logo=github)](https://yui000130.github.io/09-16-Personal-Page/)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Status](https://img.shields.io/badge/status-live-success.svg)]()
+[![Student](https://img.shields.io/badge/Student-游雅筑%20(yui000130)-blue?logo=user)]()
+[![Assignment](https://img.shields.io/badge/Assignment-DIC--1%20Personal%20Page-orange)]()
 
 ---
 
-## 🌐 線上展示網址 (Live Website URL)
+## 🌐 網站網址 (Live URL)
 
-- **GitHub Pages 公開網址**：[https://yui000130.github.io/09-16-Personal-Page/](https://yui000130.github.io/09-16-Personal-Page/)
-- **GitHub 專案原始碼**：[https://github.com/yui000130/09-16-Personal-Page](https://github.com/yui000130/09-16-Personal-Page)
-
----
-
-## ✨ 核心特色與功能 (Key Features)
-
-1. **⏱️ 高精度即時系統時鐘 (Live Real-Time Clock)**：
-   - 毫秒級即時更新時、分、秒（包含動態跳動冒號）。
-   - 當天完整日期與星期格式化。
-   - 動態秒數平滑進度條 (Seconds Progress Bar)。
-   - 今日時間進度百分比 (Day Progress)。
-   - 支援 12H / 24H 制即時切換。
-   - 自動時區識別（例如 `Asia/Taipei (UTC+8)`）。
-
-2. **🎨 經典雙態導覽列 (Dual-Mode Sticky Header)**：
-   - 頂部懸浮時呈現玻璃擬態半透明質感 (`.alt`)。
-   - 頁面向下滾動時平滑切換為深色磨砂固態導覽列。
-   - 導覽列整合即時時鐘膠囊標籤。
-
-3. **✍️ 畫面即時編輯姓名與頭銜 (Inline Editing & Persistence)**：
-   - 點擊首頁大標題即可在頁面上直接修改姓名或座右銘。
-   - 資料自動儲存至瀏覽器本地快取 (`localStorage`)，下次開啟依然保留。
-
-4. **🏷️ 專業技能標籤雲 (Skills & Tags Cloud)**：
-   - 整合現代全端開發技術棧、工具與核心能力徽章。
-
-5. **📱 極致響應式體驗 (Mobile Responsive)**：
-   - 完美適配手機、平板、筆電與超寬螢幕。
+- **正式發布網站 (GitHub Pages)**：[https://yui000130.github.io/09-16-Personal-Page/](https://yui000130.github.io/09-16-Personal-Page/)
+- **專案原始碼儲存庫**：[https://github.com/yui000130/09-16-Personal-Page](https://github.com/yui000130/09-16-Personal-Page)
 
 ---
 
-## 🚀 如何開啟 GitHub Pages 取得公開網址
+## 📋 DIC-1 作業 5 大必備要求對應說明 (Requirements Checklist)
 
-1. 將本專案檔案推送至 GitHub：
-   ```bash
-   git init
-   git config user.name "yui000130"
-   git config user.email "yui000130@users.noreply.github.com"
-   git add .
-   git commit -m "feat: complete personal page with real-time clock and GitHub integration"
-   git branch -M main
-   git remote add origin https://github.com/yui000130/09-16-Personal-Page.git
-   git push -u origin main --force
-   ```
-2. 開啟您的 GitHub 儲存庫：[https://github.com/yui000130/09-16-Personal-Page](https://github.com/yui000130/09-16-Personal-Page)
-3. 點擊頂部的 **Settings** ⚙️。
-4. 在左側選單點擊 **Pages**。
-5. 在 **Build and deployment** 下方的 **Branch** 選擇：
-   - 分支：`main`
-   - 資料夾：`/ (root)`
-   - 點擊 **Save**。
-6. 等待 30 秒至 1 分鐘，您的網站就會在下方網址正式發布：
-   👉 **https://yui000130.github.io/09-16-Personal-Page/**
+| 必備項目 | 規範要求 | 本網站實作成果 |
+| :--- | :--- | :--- |
+| 👤 **1. Profile** | 姓名、個人照片/Avatar、科系/專長、簡短自介 | 包含「游雅筑」專屬徽章頭像、科系專長、簡短自我介紹與即時可編輯功能。 |
+| 🛠 **2. Skills** | 至少 3 項技能 | 涵蓋 **Python**、**Web Development (HTML/CSS/JS)**、**AI & ML 應用**、**C/C++**、**Git & GitHub**、**Data Analysis**。 |
+| 🚀 **3. Projects** | 至少 1 個作品（含名稱、描述、技術、GitHub 連結） | 包含主要代表作品 **09-16-Personal-Page** 與本學期預計完成之 **Smart Student Dashboard**。 |
+| 🕐 **4. Live Clock** | JS 即時時鐘，顯示 HH:MM:SS，自動更新 | 高精度即時時鐘，時分秒跳動、秒數進度條、今日時間百分比、12H/24H 一鍵切換。 |
+| 🎨 **5. Personal Design** | 個人風格（顏色、字型、背景、卡片、動畫） | 獨立設計的**星幕深夜與翡翠薄荷綠 (Emerald Teal) 玻璃擬態**風格，搭配雙態動態導覽列與平滑動態卡片。 |
+
+---
+
+## 🚀 如何推送更新至 GitHub 並完成發布
+
+```bash
+git add .
+git commit -m "feat: complete DIC-1 personal page requirements"
+git push -u origin main --force
+```
+
+或直接在資料夾雙擊執行 [**push_to_github.bat**](push_to_github.bat) 即可一鍵同步。

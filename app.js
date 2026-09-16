@@ -5,9 +5,9 @@
 
 // Default configuration
 const DEFAULT_CONFIG = {
-  name: "Yui (yui000130)",
-  title: "Developer • Creator • Lifelong Learner",
-  bio: "歡迎來到我的個人網站！這裡記錄我的個人作品、技術積累與日常靈感。我熱衷於將複雜的想法轉化為優雅直觀的產品，並保持對前沿技術的好奇心。",
+  name: "游雅筑",
+  title: "資訊工程與軟體開發 • 數位創新與智慧系統探索者",
+  bio: "你好！我是游雅筑，熱愛科技與程式開發。目前專注於網頁前端技術、Python 資料應用與系統開發。我相信好的程式不僅要具備嚴謹的邏輯結構，更需要兼顧直覺且優雅的使用者體驗。平時喜歡透過實作專案累積經驗，積極擁抱 AI 輔助開發工具，不斷拓展自己在軟體工程領域的技術邊界。",
   is24Hour: false
 };
 
@@ -156,8 +156,11 @@ function setupFormatToggle() {
 // ==========================================================================
 
 function getInitials(name) {
-  if (!name || !name.trim()) return "U";
-  // Clean punctuation/brackets
+  if (!name || !name.trim()) return "筑";
+  const chineseChars = name.replace(/[()（）a-zA-Z0-9_\s]/g, "").trim();
+  if (chineseChars.length > 0) {
+    return chineseChars.slice(-1);
+  }
   const clean = name.replace(/[()（）]/g, " ").trim();
   const parts = clean.split(/\s+/);
   if (parts.length === 1) {

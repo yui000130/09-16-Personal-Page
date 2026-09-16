@@ -1154,6 +1154,24 @@ input {
   flex-grow: 1;
 }
 
+.project-tech-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.tech-chip {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background: var(--bg-card-alt);
+  border: 1px solid var(--border-light);
+  color: var(--accent-teal);
+}
+
 .project-actions {
   display: flex;
   gap: 10px;
