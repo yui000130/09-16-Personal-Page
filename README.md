@@ -4,7 +4,6 @@
 
 [![GitHub Pages](https://img.shields.io/badge/Deploy-GitHub%20Pages-brightgreen?logo=github)](https://yui000130.github.io/09-16-Personal-Page/)
 [![Student](https://img.shields.io/badge/Student-游雅筑%20(yui000130)-blue?logo=user)]()
-https://yui000130.github.io/09-16-Personal-Page/
 [![Assignment](https://img.shields.io/badge/Assignment-DIC--1%20Personal%20Page-orange)]()
 
 ---
