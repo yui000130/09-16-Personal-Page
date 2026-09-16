@@ -10,7 +10,7 @@
 
 ## 🌐 網站網址 (Live URL)
 
-- **正式發布網站 (GitHub Pages)**：[https://yui000130.github.io/09-16-Personal-Page/](https://yui000130.github.io/DIC1_PersonalPage/)
+- **正式發布網站 (GitHub Pages)**：[https://yui000130.github.io/DIC1_PersonalPage/](https://yui000130.github.io/DIC1_PersonalPage/)
 - **專案原始碼儲存庫**：[https://github.com/yui000130/09-16-Personal-Page](https://github.com/yui000130/09-16-Personal-Page)
 
 ---
